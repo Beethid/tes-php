@@ -2,21 +2,32 @@
 session_start();
 include "../databases/connection.php";
 
-$filter = $_GET['filter'] ?? 'semua';
+if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
+    header("Location: ../index.html");
+    exit;
+}
 
-/* ================= EXPORT EXCEL ================= */
+$allowedFilter = ['semua','hadir','sakit','alpha','izin'];
+$filter = $_GET['filter'] ?? 'semua'; 
+
+if (!in_array($filter, $allowedFilter)) {
+    $filter = 'semua';
+}
+
+
+
 if(isset($_GET['export']) && $_GET['export'] == 'excel'){
 
     if($filter == 'hadir'){
-        $sql = "SELECT * FROM users WHERE keterangan='Hadir' ORDER BY id DESC";
+        $sql = "SELECT * FROM absensi WHERE keterangan='Hadir' ORDER BY id DESC";
     } elseif($filter == 'sakit'){
-        $sql = "SELECT * FROM users WHERE keterangan='Sakit' ORDER BY id DESC";
+        $sql = "SELECT * FROM absensi WHERE keterangan='Sakit' ORDER BY id DESC";
     } elseif($filter == 'alpha'){
-        $sql = "SELECT * FROM users WHERE keterangan='Alpha' ORDER BY id DESC";
+        $sql = "SELECT * FROM absensi WHERE keterangan='Alpha' ORDER BY id DESC";
     } elseif($filter == 'izin'){
-        $sql = "SELECT * FROM users WHERE keterangan='Izin' ORDER BY id DESC";
+        $sql = "SELECT * FROM absensi WHERE keterangan='Izin' ORDER BY id DESC";
     } else {
-        $sql = "SELECT * FROM users ORDER BY id DESC";
+        $sql = "SELECT * FROM absensi ORDER BY id DESC";
     }
 
     $query = mysqli_query($conn, $sql);
@@ -43,10 +54,26 @@ if(isset($_GET['export']) && $_GET['export'] == 'excel'){
     exit();
 }
 
-if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
-    header("Location: ../index.html");
-    exit;
+if(isset($_POST['submit_user'])){
+    $nama = mysqli_real_escape_string($conn, $_POST['nama']);
+    $kelas = mysqli_real_escape_string($conn, $_POST['kelas']);
+    $jurusan = mysqli_real_escape_string($conn, $_POST['jurusan']);
+    $bidang = mysqli_real_escape_string($conn, $_POST['bidang']);
+    $role = mysqli_real_escape_string($conn, $_POST['role']);
+    $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+
+    $sql = "INSERT INTO users (username, kelas, jurusan, bidang, role, password_hash)
+            VALUES ('$nama','$kelas','$jurusan','$bidang','$role','$password')";
+    $query = mysqli_query($conn, $sql);
+
+    if($query){
+        echo "<script>alert('User berhasil ditambahkan'); window.location='admin_page.php';</script>";
+    } else {
+        echo "Error: " . mysqli_error($conn);
+    }
 }
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -91,7 +118,7 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
   </div>
 </nav>
 
-<div style="margin-top:80px;">
+<div style="margin-top:80px">
 <?php
 if ($filter == 'hadir') {
     include "admin_page/hadir.php";
@@ -113,6 +140,43 @@ if ($filter == 'hadir') {
        Download Excel
     </a>
 </div>
+  <div class="container mt-4">
+    <h3>Tambah User Baru</h3>
+<form action="" method="post">
+    <div class="mb-3">
+        <label class="form-label">Nama:</label>
+        <input class="form-control" type="text" name="nama" required>
+    </div>
+    <div class="mb-3" >
+        <label class="form-label">Kelas:</label>
+        <select class="form-control" type="text" name="kelas" required>
+          <option value="X">X</option>
+          <option value="XI">XI</option>
+        </select>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Jurusan:</label>
+        <input class="form-control" type="text" name="jurusan" required>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Bidang:</label>
+        <input class="form-control" type="text" name="bidang" value="Web Design" readonly required>
+    </div>
+    <div class="mb-3">
+        <label class="form-label" >Role:</label>
+        <select class="form-control" name="role" class="form-control" required>
+            <option value="user">User</option>
+            <option value="admin">Admin</option>
+        </select>
+    </div>
+    <div class="mb-3">
+        <label>Password:</label>
+        <input class="form-control" type="password" name="password" required>
+    </div>
+    <button class="btn btn-primary" type="submit" name="submit_user">Tambah User</button>
+</form>
+</div>
+
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>

@@ -2,11 +2,12 @@
 include "../databases/connection.php"; // pastikan path bener
 
 // Ambil data siswa yang sakit
-$sql = "SELECT * FROM users WHERE keterangan='Alpha' ORDER BY id DESC";
+$sql = "SELECT * FROM absensi WHERE keterangan='Alpha' ORDER BY id DESC";
 $query = mysqli_query($conn, $sql);
 ?>
 
 <div class="container mt-4">
+    <h2>Siswa Alpha</h2>
   <table class="table table-striped table-bordered">
     <thead class="table-dark">
       <tr>

@@ -21,28 +21,18 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'user') {
   </head>
   <body class="d-flex align-items-center justify-content-center">
     <form action="../databases/form.php" method="POST" class="form" enctype="multipart/form-data">
-      
-
       <h2 class="text-center" id="judul">Absensi Eksul Coding</h2>
+      <input type="hidden" name="user_id" value="<?php echo $_SESSION['user_id']; ?>">
+
 
       <div class="mb-3 d-flex flex-column">
         <label for="nama" class="form-label">Nama</label>
-        <input
-          type="text"
-          id="nama"
-          name="nama"
-          class="form-control"
-          required
-          value="<?php echo $_SESSION['username']; ?>"
-          readonly
-        />
-        
+        <input type="text" name="nama" class="form-control" value="<?php echo $_SESSION['username']; ?>" readonly>
       </div>
 
       <div class="mb-3 d-flex flex-column">
         <label for="kelas" class="form-label">Kelas</label>
-        <input type="text" name="kelas" class="form-control" value="<?php echo $_SESSION['kelas']; ?>" readonly
-/>
+<input type="text" name="kelas" class="form-control" value="<?php echo $_SESSION['kelas']; ?>" readonly>
       </div>
 
       <div class="mb-3 d-flex flex-column">
@@ -53,7 +43,7 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'user') {
 
       <div class="mb-3 d-flex flex-column">
         <label for="bidang" class="form-label">Bidang</label>
-        <input name="bidang" id="bidang" class="form-control" type="text" value="<?php echo $_SESSION['bidang']?>" </input>
+        <input name="bidang" id="bidang" class="form-control" type="text" value="<?php echo $_SESSION['bidang']?>" readonly></input>
       </div>
 
       <div class="mb-3 d-flex flex-column">
