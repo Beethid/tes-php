@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 28 Feb 2026 pada 13.05
+-- Waktu pembuatan: 28 Feb 2026 pada 13.48
 -- Versi server: 10.4.32-MariaDB
 -- Versi PHP: 8.2.12
 
@@ -45,7 +45,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `tanggal`, `nama`, `kelas`, `jurusan`, `bidang`, `keterangan`, `alasan`, `mc`, `submit_at`) VALUES
-(36, '0000-00-00', 'ferdian', 'X', 'TEKOJA 1', 'Web Design', 'Izin', 'nonton conan', '', '2026-02-28 09:17:42');
+(36, '0000-00-00', 'ferdian', 'X', 'TEKOJA 1', 'Web Design', 'Izin', 'nonton conan', '', '2026-02-28 09:17:42'),
+(37, '0000-00-00', 'ferdian', 'X', 'TEKOJA 1', 'Web Design', 'Sakit', '', 'mc_ferdian.jpg', '2026-02-28 12:43:41');
 
 --
 -- Indexes for dumped tables
@@ -65,7 +66,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT untuk tabel `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -33,7 +33,7 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'user') {
           name="nama"
           class="form-control"
           required
-          value="<?php echo $_SESSION['user']; ?>"
+          value="<?php echo $_SESSION['username']; ?>"
           readonly
         />
         
