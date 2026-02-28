@@ -1,0 +1,37 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Poppins;
+}
+
+.form-control {
+  transition: all 100ms ease-in-out;
+}
+
+
+
+body {
+  overflow-x: hidden;
+  background:linear-gradient(90deg, rgb(216, 216, 216), rgb(141, 171, 252));
+  display: flex;
+  width: 100vw;
+  min-height: 100dvh;
+  flex-direction: column;
+  padding: 70px 2rem 2rem 1rem;
+  align-items: center;
+}
+
+form {
+  border: 1px solid rgba(0, 0, 0, 0.171);
+  border-radius: 10px;
+  padding: 3rem;
+}
+
+#judul {
+  background: linear-gradient(90deg, blue, rgb(255, 0, 234), blue);
+  -webkit-background-clip: text;
+  background-size: 400% 400%;
+  -webkit-text-fill-color: transparent;
+}
